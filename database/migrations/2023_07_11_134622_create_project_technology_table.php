@@ -18,7 +18,7 @@ return new class extends Migration
             $table->unsignedBigInteger('technology_id');
 
             $table->foreign('project_id')->references('id')->on('projects');
-            $table->foreign('technology_id')->references('id')->on('tecnologies');
+            $table->foreign('technology_id')->references('id')->on('technologies');
             
         });
     }

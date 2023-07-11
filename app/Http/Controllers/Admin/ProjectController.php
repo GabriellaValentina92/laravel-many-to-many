@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Models\Type;
 use App\Models\Project;
+use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -45,7 +46,8 @@ class ProjectController extends Controller
     public function create()
     {
         $types = Type::all();
-        return view('admin.projects.create', compact('types'));
+        $technologies = Technology::all();
+        return view('admin.projects.create', compact('types', 'technologies'));
     }
 
     /**
@@ -59,8 +61,10 @@ class ProjectController extends Controller
         $request->validate($this->validation, $this->validation_messages);
 
         $data = $request->all();
+
         // salvare i dati nel db (questo metodo anche se è più lungo è il più sicuro)
         $newProject = new Project();
+
         $newProject->title = $data['title'];
         $newProject->type_id = $data['type_id'];
         $newProject->project_image = $data['project_image'];
@@ -68,7 +72,12 @@ class ProjectController extends Controller
         $newProject->url_github = $data['url_github'];
         $newProject-> save();
 
+        
         unset($data['_token']);
+
+        //associare technology
+        $newProject->technologies()->sync($data['technologies']);
+
         return redirect()-> route('admin.projects.show', ['project'=> $newProject]);
     }
 

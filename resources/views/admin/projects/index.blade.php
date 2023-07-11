@@ -31,6 +31,7 @@
             <th scope="col">ID</th>
             <th scope="col">Title</th>
             <th scope="col">type</th>
+            <th scope="col">technologies</th>
             <th scope="col">url_github</th>
             <th scope="col">Action</th>
         </tr>
@@ -41,6 +42,7 @@
                 <th scope="row">{{ $project->id }}</th>
                 <td>{{ $project->title }}</td>
                 <td><a href="{{route('admin.types.show', ['type' => $project->type])}}">{{ $project->type->project_type }}</a></td>
+                <td>{{implode(',', $project->technologies->pluck('name')->all())}}</td>
                 <td>{{ $project->url_github }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ route('admin.projects.show', ['project' => $project->id]) }}">View</a>

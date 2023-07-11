@@ -27,7 +27,20 @@
                     </div> 
                 @endforeach
             </select>
-        </div>    
+        </div> 
+        
+        <div class="mb-3">
+            <h3>Technologies</h3>
+            @foreach($technologies as $technology)
+                <div class="mb-3 form-check">
+                    <input type="checkbox" class="form-check-input" id="technology{{$technology->id}}" name="techologies[]" value="{{$technology->id}}"  @if (in_array($technology->id, old('technologies', []))) checked @endif>
+                    <label class="form-check-label" for="technology{{$technology->id}}">{{$technology->name}}</label>
+                </div>
+            @endforeach    
+            {{-- <div class="invalid-feedback">
+                @error('type_id') {{ $message }} @enderror
+            </div>  --}}    
+        </div> 
 
         <div class="mb-3">
             <label for="project_image" class="form-label">image url</label>

@@ -42,7 +42,11 @@
                 <th scope="row">{{ $project->id }}</th>
                 <td>{{ $project->title }}</td>
                 <td><a href="{{route('admin.types.show', ['type' => $project->type])}}">{{ $project->type->project_type }}</a></td>
-                <td>{{implode(',', $project->technologies->pluck('name')->all())}}</td>
+                <td>
+                    @foreach ($project->technologies as $technology)
+                        <a href="{{route('admin.technologies.show', ['technology' => $technology])}}">{{$technology->name}}</a>
+                    @endforeach
+                </td>
                 <td>{{ $project->url_github }}</td>
                 <td>
                     <a class="btn btn-primary" href="{{ route('admin.projects.show', ['project' => $project->id]) }}">View</a>

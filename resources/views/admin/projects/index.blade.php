@@ -44,7 +44,7 @@
                 <td><a href="{{route('admin.types.show', ['type' => $project->type])}}">{{ $project->type->project_type }}</a></td>
                 <td>
                     @foreach ($project->technologies as $technology)
-                        <a href="{{route('admin.technologies.show', ['technology' => $technology])}}">{{$technology->name}}</a>
+                        <a href="{{route('admin.technologies.show', ['technology' => $technology])}}">{{$technology->name}}</a>{{ !$loop->last ? ',' : '' }}
                     @endforeach
                 </td>
                 <td>{{ $project->url_github }}</td>

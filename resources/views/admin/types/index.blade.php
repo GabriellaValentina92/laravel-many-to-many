@@ -3,22 +3,22 @@
 @section('contents')
 <h1>tYPES</h1>
 
-{{-- @if (session('delete_success'))
-    @php $project = session('delete_success') @endphp
+@if (session('types_delete_success'))
+    @php $type = session('types_delete_success') @endphp
     <div class="alert alert-danger">
-        La project "{{ $project->titolo }}" è stata eliminata
-        <form
-            action="{{ route("admin.projects.restore", ['project' => $project]) }}"
+        This type "{{ $type->name }}" has been deleted
+    </div>
+@endif
+        {{-- <form
+            action="{{ route("admin.projects.restore", ['type' => $type]) }}"
                 method="project"
                 class="d-inline-block"
             >
             @csrf
             <button class="btn btn-warning">Ripristina</button>
-        </form>
-    </div>
-@endif
+        </form> --}}
 
-@if (session('restore_success'))
+{{-- @if (session('restore_success'))
     @php $project = session('restore_success') @endphp
     <div class="alert alert-success">
         La project "{{ $project->titolo }}" è stata ripristinata
@@ -30,7 +30,6 @@
         <tr>
             <th scope="col">ID</th>
             <th scope="col">Project_type</th>
-            <th scope="col">Description</th>
             <th scope="col">Action</th>
         </tr>
     </thead>
@@ -46,7 +45,7 @@
                     
                     <form
                         action="{{ route('admin.types.destroy', ['type' => $type->id]) }}"
-                        method="type"
+                        method="post"
                         class="d-inline-block"
                     >
                         @csrf

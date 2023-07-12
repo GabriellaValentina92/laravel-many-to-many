@@ -2,59 +2,28 @@
 
 @section('contents')
 <div class="container-create">
-  <h1>Insert a New Project</h1>
+  <h1>Insert a New Type</h1>
 
-    <form method="POST" action="{{ route('admin.projects.store') }}" class="form-create">
+    <form method="POST" action="{{ route('admin.types.store') }}" class="form-create">
         {{-- input nascosto che arriva al server --}}
         @csrf
         <div class="mb-3">
-            <label for="title" class="form-label">title</label>
-            <input type="text" class="form-control @error('title') is-invalid @enderror" id="title" name="title" value="{{ old('title') }}">
+            <label for="name" class="form-label">name</label>
+            <input type="text" class="form-control @error('name') is-invalid @enderror" id="name" name="name" value="{{ old('name') }}">
             <div class="invalid-feedback">
-            @error('title') {{ $message }} @enderror
+            @error('name') {{ $message }} @enderror
             </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="type" class="form-label">Type</label>
-            <select class="form-select @error('type_id') is-invalid @enderror" aria-label="Default select example" id="type" name="type_id">
-                {{-- <option selected>Open this select menu</option>                --}}
-                @foreach ($types as $type){
-                    <option value="{{$type->id}}">{{$type->project_type}}</option>
-                }
-                <div class="invalid-feedback">
-                    @error('type_id') {{ $message }} @enderror
-                    </div> 
-                @endforeach
-            </select>
         </div>    
 
         <div class="mb-3">
-            <label for="project_image" class="form-label">image url</label>
-            <input type="url" class="form-control @error('project_image') is-invalid @enderror" id="project_image" rows="3" name="project_image" value="{{ old('project_image') }}">
+            <label for="description" class="form-label">description</label>
+            <textarea class="form-control @error('description') is-invalid @enderror" id="description" name="description" cols="30" rows="10"> {{ old('description') }} </textarea>
             <div class="invalid-feedback">
-                @error('project_image') {{ $message }} @enderror
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="url_github" class="form-label">url_github</label>
-            <input type="url" class="form-control @error('url_github') is-invalid @enderror" id="url_github" name="url_github" value="{{ old('url_github') }}">
-            <div class="invalid-feedback">
-                @error('url_github') {{ $message }} @enderror
-            </div>
-        </div>
-
-        <div class="mb-3">
-            <label for="project_description" class="form-label">project_description</label>
-            <textarea class="form-control @error('project_description') is-invalid @enderror" id="project_description" name="project_description" cols="30" rows="10"> {{ old('project_description') }} </textarea>
-            <div class="invalid-feedback">
-                @error('project_description') {{ $message }} @enderror
+                @error('description') {{ $message }} @enderror
             </div>
         </div>
 
         <button type="submit" class="btn btn-primary">Save</button>
     </form>
-      
   @endsection
 </div>

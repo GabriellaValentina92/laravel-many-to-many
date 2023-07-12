@@ -76,7 +76,7 @@ class ProjectController extends Controller
         unset($data['_token']);
 
         //associare technology
-        $newProject->technologies()->sync($data['technologies']);
+        $newProject->technologies()->sync($data['technologies'] ?? []);
 
         return redirect()-> route('admin.projects.show', ['project'=> $newProject]);
     }

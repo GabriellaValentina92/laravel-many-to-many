@@ -12,19 +12,19 @@ class ProjectController extends Controller
 {
 
     private $validation = [
-        'title'=> 'required|string|max:200',
-        'type_id'=> 'required|integer|exists:types,id',
-        'project_image'=> 'url|max:200',
+        'title'               => 'required|string|max:200',
+        'type_id'             => 'required|integer|exists:types,id',
+        'project_image'       => 'url|max:200',
         'project_description' => 'required|string',
-        'url_github' => 'required|url|max:200',
-            
+        'url_github'          => 'required|url|max:200',
+        'technologies.*'      => 'integer|exists:technologies,id',   
     ];
 
     private $validation_messages = [
         'required'  => 'Il campo :attribute è obbligatorio',
         'max'       => 'Il campo :attribute non può superare i :max caratteri',
         'url'       => 'Il campo deve essere un url valido',
-        'exists'   => 'id non valido',
+        'exists'    => 'id non valido',
     ];
 
     /**

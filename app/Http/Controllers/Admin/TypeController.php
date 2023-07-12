@@ -26,7 +26,8 @@ class TypeController extends Controller
      */
     public function create()
     {
-        //
+        $types = Type::all();
+        return view('admin.types.create', compact('types')); 
     }
 
     /**
@@ -82,6 +83,8 @@ class TypeController extends Controller
      */
     public function destroy(Type $type)
     {
-        //
+        $type -> delete();
+        
+        return to_route('admin.types.index')->with('types_delete_success', $type);
     }
 }

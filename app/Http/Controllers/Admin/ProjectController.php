@@ -141,6 +141,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        //eliminare le righe della tabella ponte prima del delete
+        $project->technologies()->detach();
+
         $project->delete();
 
         return to_route('admin.projects.index')->with('delete_success', $project);

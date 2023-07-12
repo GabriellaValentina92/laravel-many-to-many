@@ -50,7 +50,7 @@
                     
                     <form
                         action="{{ route('admin.projects.destroy', ['project' => $project->id]) }}"
-                        method="project"
+                        method="post"
                         class="d-inline-block"
                     >
                         @csrf

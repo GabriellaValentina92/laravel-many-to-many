@@ -7,6 +7,7 @@ use App\Models\Project;
 use App\Models\Technology;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ProjectController extends Controller
 {
@@ -15,6 +16,7 @@ class ProjectController extends Controller
         'title'               => 'required|string|max:200',
         'type_id'             => 'required|integer|exists:types,id',
         'project_image'       => 'url|max:200',
+        'img_file'            => 'nullable|image|max:1024',
         'project_description' => 'required|string',
         'url_github'          => 'required|url|max:200',
         'technologies.*'      => 'integer|exists:technologies,id',   
@@ -61,6 +63,8 @@ class ProjectController extends Controller
         $request->validate($this->validation, $this->validation_messages);
 
         $data = $request->all();
+        //salvare img nella cartella upload
+        $imagePath = Storage::put('uploads', $data['img_file']);
 
         // salvare i dati nel db (questo metodo anche se è più lungo è il più sicuro)
         $newProject = new Project();
@@ -68,6 +72,7 @@ class ProjectController extends Controller
         $newProject->title = $data['title'];
         $newProject->type_id = $data['type_id'];
         $newProject->project_image = $data['project_image'];
+        $newProject->img_file = $imagePath;
         $newProject->project_description = $data['project_description'];
         $newProject->url_github = $data['url_github'];
         $newProject-> save();
@@ -118,7 +123,20 @@ class ProjectController extends Controller
         $request->validate($this->validation, $this->validation_messages);
 
         $data = $request->all();
-        // cambiare i dati inseriti
+
+        if ($data['img_file']) {
+            // salvare l'immagine nuova
+            $imagePath = Storage::put('uploads', $data['img_file']);
+
+            // eliminare l'immagine vecchia
+            if ($project->img_file) {
+                Storage::delete($project->img_file);
+            }
+
+            // aggiormare il valore nella colonna con l'indirizzo dell'immagine nuova
+            $project->img_file = $imagePath;
+        }
+
         
         $project->title = $data['title'];
         $project->type_id = $data['type_id'];

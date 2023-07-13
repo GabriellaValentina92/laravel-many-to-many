@@ -4,7 +4,7 @@
 <div class="container-create">
   <h1>Edit Project</h1>
 
-    <form method="POST" action="{{ route('admin.projects.update', ['project' => $project->id]) }}" class="form-create">
+    <form method="POST" action="{{ route('admin.projects.update', ['project' => $project->id]) }}" class="form-create" enctype="multipart/form-data">
         {{-- input nascosto che arriva al server --}}
         @csrf
         @method('PUT')
@@ -51,6 +51,14 @@
                 @error('project_image') {{ $message }} @enderror
             </div>
         </div>
+
+        <div class="input-group mb-3">
+            <input type="file" class="form-control @error('img_file') is-invalid @enderror" id="image" name="img_file" accept="image/*">
+            <label class="input-group-text" for="image">Upload</label>
+            <div class="invalid-feedback">
+                @error('img_file') {{ $message }} @enderror
+            </div>
+          </div>
 
         <div class="mb-3">
             <label for="url_github" class="form-label">url_github</label>

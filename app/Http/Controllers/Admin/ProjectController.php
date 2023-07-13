@@ -159,6 +159,9 @@ class ProjectController extends Controller
      */
     public function destroy(Project $project)
     {
+        if ($project->img_file) {
+            Storage::delete($project->img_file);
+        }
         //eliminare le righe della tabella ponte prima del delete
         $project->technologies()->detach();
 
